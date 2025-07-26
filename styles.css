@@ -1538,23 +1538,32 @@ body {
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(0, 0, 0, 0.95);
+        background: #111 !important;
         backdrop-filter: blur(10px);
         flex-direction: column;
         padding: 1rem 0;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         z-index: 1000;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     .nav-links.active {
-        display: flex;
+        display: flex !important;
     }
     
     .nav-links a {
         padding: 1rem 2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         text-align: left;
         font-size: 1.1rem;
+        color: #fff !important;
+        background: transparent !important;
+        transition: background 0.2s;
+    }
+    
+    .nav-links a:hover, .nav-links a:active {
+        background: rgba(40, 40, 40, 0.85) !important;
+        color: #fff !important;
     }
     
     .nav-links a:last-child {
@@ -1563,6 +1572,109 @@ body {
     
     .nav-toggle {
         display: flex;
+    }
+    
+    /* 修复移动端内容显示问题 */
+    .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .hero-container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .hero-content {
+        text-align: center;
+        color: white;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+        color: white !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+        line-height: 1.6;
+        color: white !important;
+    }
+    
+    .hkust-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 25px;
+        text-decoration: none;
+        color: white;
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .hkust-badge-logo {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+    }
+    
+    .hero-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+    
+    .btn {
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-width: 200px;
+        justify-content: center;
+        font-size: 1rem;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+    }
+    
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+    }
+    
+    .btn-logo {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
     }
     
     .hero-container {

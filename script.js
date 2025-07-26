@@ -4,10 +4,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
     
-    if (navToggle) {
+    if (navToggle && navLinks) {
         navToggle.addEventListener('click', function() {
+            console.log('Mobile menu toggle clicked');
             navLinks.classList.toggle('active');
             navToggle.classList.toggle('active');
+            
+            // 防止页面滚动
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // 点击菜单项时关闭菜单
+        const menuLinks = navLinks.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
         });
     }
 
