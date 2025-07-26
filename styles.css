@@ -1563,6 +1563,8 @@ body {
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         z-index: 1000;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
+        /* 添加安全区域支持，避免被移动端地址栏遮挡 */
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
     }
     
     .nav-links.active {
@@ -1586,6 +1588,8 @@ body {
     
     .nav-links a:last-child {
         border-bottom: none;
+        /* 为最后一个元素添加额外的底部间距，确保不被地址栏遮挡 */
+        margin-bottom: env(safe-area-inset-bottom);
     }
     
     /* 移动端Sign Up按钮特殊样式 */
@@ -1597,6 +1601,11 @@ body {
         text-align: center;
         font-weight: 600;
         border: none !important;
+        /* 确保按钮在移动端地址栏上方可见 */
+        position: relative;
+        z-index: 1000;
+        /* 添加额外的底部间距，确保不被地址栏遮挡 */
+        margin-bottom: calc(0.5rem + env(safe-area-inset-bottom));
     }
     
     .nav-links .signup-btn:hover {
@@ -1608,6 +1617,58 @@ body {
         display: flex;
     }
     
+    /* 通用移动端处理 - 确保导航菜单不被地址栏遮挡（适用于所有移动设备） */
+    .nav-links {
+        padding-bottom: calc(1rem + 20px); /* 通用额外底部间距 */
+    }
+    
+    .nav-links .signup-btn {
+        margin-bottom: calc(0.5rem + 20px); /* 通用额外底部间距 */
+    }
+    
+    /* iOS Safari 特殊处理 - 额外的安全区域支持 */
+    @supports (-webkit-touch-callout: none) {
+        .nav-links {
+            padding-bottom: calc(1rem + env(safe-area-inset-bottom) + 20px);
+        }
+        
+        .nav-links .signup-btn {
+            margin-bottom: calc(0.5rem + env(safe-area-inset-bottom) + 20px);
+        }
+    }
+    
+    /* Android Chrome 和其他移动浏览器的额外支持 */
+    @media screen and (max-width: 768px) and (max-height: 900px) {
+        .nav-links {
+            padding-bottom: calc(1rem + 30px); /* 小屏幕设备的额外间距 */
+        }
+        
+        .nav-links .signup-btn {
+            margin-bottom: calc(0.5rem + 30px); /* 小屏幕设备的额外间距 */
+        }
+    }
+    
+    /* 通用移动端底部安全区域处理 */
+    @media screen and (max-width: 768px) {
+        /* 为所有移动设备添加底部安全区域 */
+        body {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        
+        /* 确保导航菜单在所有移动设备上都可见 */
+        .nav-links {
+            min-height: calc(100vh - env(safe-area-inset-top));
+            padding-top: calc(1rem + env(safe-area-inset-top));
+        }
+        
+        /* 确保Sign Up按钮在所有移动设备上都可见 */
+        .nav-links .signup-btn {
+            position: sticky;
+            bottom: env(safe-area-inset-bottom);
+            margin-bottom: 1rem;
+        }
+    }
+    
     /* 修复移动端内容显示问题 */
     .hero {
         min-height: 100vh;
@@ -1616,6 +1677,8 @@ body {
         justify-content: center;
         position: relative;
         overflow: hidden;
+        /* 确保在移动端有足够的底部间距 */
+        padding-bottom: env(safe-area-inset-bottom);
     }
     
     .hero-container {
