@@ -480,7 +480,7 @@ style.textContent = `
 document.head.appendChild(style); 
 
 // API Configuration
-const API_BASE_URL = 'https://your-backend-domain.com/api'; // 部署后需要更新
+const API_BASE_URL = 'https://your-backend-domain.com/api'; // TODO: 部署后端后更新为实际地址
 
 // OAuth Login Functions
 async function handleGoogleLogin() {
