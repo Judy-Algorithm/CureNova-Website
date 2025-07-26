@@ -71,12 +71,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close modal when clicking outside (only for download modal)
     if (modal) {
-        window.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        });
+    window.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    });
     }
 
     // Navbar scroll effect - 保持黑色背景
@@ -498,93 +498,110 @@ style.textContent = `
 document.head.appendChild(style); 
 
 // API Configuration
-const API_BASE_URL = 'https://your-backend-domain.com/api'; // TODO: 部署后端后更新为实际地址
+// const API_BASE_URL = 'https://your-backend-domain.com/api'; // TODO: 部署后端后更新为实际地址
 
 // OAuth Login Functions
+// async function handleGoogleLogin() {
+//     try {
+//         // 重定向到后端Google OAuth端点
+//         window.location.href = `${API_BASE_URL}/auth/google`;
+//     } catch (error) {
+//         console.error('Google login error:', error);
+//         alert('Google登录失败，请重试');
+//     }
+// }
+
+// async function handleGitHubLogin() {
+//     try {
+//         // 重定向到后端GitHub OAuth端点
+//         window.location.href = `${API_BASE_URL}/auth/github`;
+//     } catch (error) {
+//         console.error('GitHub login error:', error);
+//         alert('GitHub登录失败，请重试');
+//     }
+// }
+
+// Email Registration Function
+// async function handleEmailRegistration(formData) {
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/auth/register`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 name: formData.get('name'),
+//                 email: formData.get('email'),
+//                 password: formData.get('password')
+//             })
+//         });
+
+//         const data = await response.json();
+
+//         if (response.ok) {
+//             alert('注册成功！请检查您的邮箱以完成验证。');
+//             // 可以在这里重定向到登录页面或关闭模态框
+//         } else {
+//             alert(data.message || '注册失败，请重试');
+//         }
+//     } catch (error) {
+//         console.error('Registration error:', error);
+//         alert('注册失败，请检查网络连接');
+//     }
+// }
+
+// Email Login Function
+// async function handleEmailLogin(formData) {
+//     try {
+//         const response = await fetch(`${API_BASE_URL}/auth/login`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify({
+//                 email: formData.get('email'),
+//                 password: formData.get('password')
+//             })
+//         });
+
+//         const data = await response.json();
+
+//         if (response.ok) {
+//             // 保存token到localStorage
+//             localStorage.setItem('authToken', data.token);
+//             localStorage.setItem('user', JSON.stringify(data.user));
+            
+//             alert('登录成功！欢迎回到CureNova Bioscience');
+//             // 关闭登录模态框
+//             if (loginModal) {
+//                 loginModal.style.display = 'none';
+//             }
+//             // 更新UI显示用户信息
+//             updateUserInterface(data.user);
+//         } else {
+//             alert(data.message || '登录失败，请检查邮箱和密码');
+//         }
+//     } catch (error) {
+//         console.error('Login error:', error);
+//         alert('登录失败，请检查网络连接');
+//     }
+// }
+
+// 临时占位函数 - 后端部署后删除
 async function handleGoogleLogin() {
-    try {
-        // 重定向到后端Google OAuth端点
-        window.location.href = `${API_BASE_URL}/auth/google`;
-    } catch (error) {
-        console.error('Google login error:', error);
-        alert('Google登录失败，请重试');
-    }
+    alert('Google登录功能暂未启用，请等待后端部署完成');
 }
 
 async function handleGitHubLogin() {
-    try {
-        // 重定向到后端GitHub OAuth端点
-        window.location.href = `${API_BASE_URL}/auth/github`;
-    } catch (error) {
-        console.error('GitHub login error:', error);
-        alert('GitHub登录失败，请重试');
-    }
+    alert('GitHub登录功能暂未启用，请等待后端部署完成');
 }
 
-// Email Registration Function
 async function handleEmailRegistration(formData) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/auth/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: formData.get('name'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            alert('注册成功！请检查您的邮箱以完成验证。');
-            // 可以在这里重定向到登录页面或关闭模态框
-        } else {
-            alert(data.message || '注册失败，请重试');
-        }
-    } catch (error) {
-        console.error('Registration error:', error);
-        alert('注册失败，请检查网络连接');
-    }
+    alert('注册功能暂未启用，请等待后端部署完成');
 }
 
-// Email Login Function
 async function handleEmailLogin(formData) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: formData.get('email'),
-                password: formData.get('password')
-            })
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            // 保存token到localStorage
-            localStorage.setItem('authToken', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-            
-            alert('登录成功！欢迎回到CureNova Bioscience');
-            // 关闭登录模态框
-            if (loginModal) {
-                loginModal.style.display = 'none';
-            }
-            // 更新UI显示用户信息
-            updateUserInterface(data.user);
-        } else {
-            alert(data.message || '登录失败，请检查邮箱和密码');
-        }
-    } catch (error) {
-        console.error('Login error:', error);
-        alert('登录失败，请检查网络连接');
-    }
+    alert('登录功能暂未启用，请等待后端部署完成');
 }
 
 // Update UI after login

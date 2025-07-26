@@ -947,6 +947,24 @@ body {
     flex-direction: column;
 }
 
+/* 移动端sign up页面独立滚动 */
+@media (max-width: 768px) {
+    .subpage-container {
+        min-height: auto;
+        height: auto;
+    }
+    
+    body {
+        overflow-y: auto;
+    }
+    
+    .signup-section {
+        min-height: auto;
+        height: auto;
+        padding: 20px 0;
+    }
+}
+
 /* About Page Styles */
 .about-hero {
     padding: 120px 0 80px 0;
@@ -1570,6 +1588,22 @@ body {
         border-bottom: none;
     }
     
+    /* 移动端Sign Up按钮特殊样式 */
+    .nav-links .signup-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        color: white !important;
+        border-radius: 25px;
+        margin: 0.5rem 2rem;
+        text-align: center;
+        font-weight: 600;
+        border: none !important;
+    }
+    
+    .nav-links .signup-btn:hover {
+        background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%) !important;
+        transform: translateY(-1px);
+    }
+    
     .nav-toggle {
         display: flex;
     }
@@ -1945,14 +1979,14 @@ body {
 .team-row {
     display: flex;
     flex-direction: row;
-    gap: 2.5rem;
+    gap: 2rem;
     justify-content: center;
 }
 .team-member {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 120px;
+    width: 110px;
 }
 .team-member img {
     width: 90px;
@@ -1985,6 +2019,7 @@ body {
 @media (max-width: 900px) {
     .team-row {
         gap: 1.2rem;
+        justify-content: center;
     }
     .team-member {
         width: 90px;
@@ -2001,6 +2036,47 @@ body {
     }
     .member-degree {
         font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-members-grid {
+        gap: 2rem;
+    }
+    .team-row {
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: center;
+    }
+    .team-member {
+        width: 80px;
+        flex: 0 0 auto;
+    }
+    .team-member img {
+        width: 60px;
+        height: 60px;
+    }
+    .member-name {
+        font-size: 0.8rem;
+    }
+    .member-info {
+        font-size: 0.7rem;
+    }
+    .member-degree {
+        font-size: 0.65rem;
+    }
+    
+    /* 确保每行最多4个人 */
+    .team-row:first-child {
+        justify-content: center;
+    }
+    
+    .team-row:nth-child(2) {
+        justify-content: center;
+    }
+    
+    .team-row:nth-child(3) {
+        justify-content: center;
     }
 }
 @media (max-width: 600px) {
@@ -2036,8 +2112,17 @@ body {
     flex-direction: column;
     align-items: center;
 }
+
+.overview-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
 .team-intro-text {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 2.5rem;
     text-align: left;
     color: #fff;
@@ -2047,5 +2132,21 @@ body {
 @media (max-width: 900px) {
     .team-section-center, .team-intro-text {
         max-width: 95vw;
+    }
+    
+    .overview-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .overview-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .overview-title {
+        font-size: 1.5rem;
     }
 } 
