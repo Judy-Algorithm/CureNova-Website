@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Nav toggle element:', navToggle);
     console.log('Nav links element:', navLinks);
     
+    // 添加更多调试信息
+    if (navToggle) {
+        console.log('Nav toggle display style:', getComputedStyle(navToggle).display);
+        console.log('Nav toggle z-index:', getComputedStyle(navToggle).zIndex);
+        console.log('Nav toggle pointer-events:', getComputedStyle(navToggle).pointerEvents);
+    }
+    
     if (navToggle && navLinks) {
         console.log('Adding click event listener to nav toggle');
-        
-        // 清除所有现有的事件监听器
-        navToggle.replaceWith(navToggle.cloneNode(true));
-        navToggle = document.querySelector('.nav-toggle');
         
         // 只使用一个简单的事件监听器
         navToggle.addEventListener('click', function(e) {
@@ -56,9 +59,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.style.overflow = 'auto';
             });
         });
+        
+        // 添加全局点击监听器来调试
+        document.addEventListener('click', function(e) {
+            if (e.target === navToggle || navToggle.contains(e.target)) {
+                console.log('Global click detected on nav toggle');
+            }
+        });
     }
-
-    // Smooth scrolling for navigation links
     const navLinksAll = document.querySelectorAll('a[href^="#"]');
     navLinksAll.forEach(link => {
         link.addEventListener('click', function(e) {
