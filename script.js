@@ -284,8 +284,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            if (password.length < 8) {
-                alert('Password must be at least 8 characters long');
+            if (password.length < 6) {
+                alert('Password must be at least 6 characters long');
+                return;
+            }
+            
+            // 检查密码复杂度
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
+            if (!passwordRegex.test(password)) {
+                alert('Password must contain at least one uppercase letter, one lowercase letter, and one number');
                 return;
             }
             
@@ -625,10 +632,10 @@ async function handleEmailRegistration(formData) {
             password: formData.get('password')
         };
         
-        console.log('请求URL:', `${API_BASE_URL}/api/auth/register`);
+        console.log('请求URL:', `${API_BASE_URL}/auth/register`);
         console.log('请求体:', requestBody);
         
-        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        const response = await fetch(`${API_BASE_URL}/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -649,9 +656,25 @@ async function handleEmailRegistration(formData) {
             if (signupModal) {
                 signupModal.style.display = 'none';
             }
+            // 跳转到登录页面或显示登录表单
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.style.display = 'flex';
+            } else {
+                window.location.href = 'index.html';
+            }
         } else {
             console.error('注册失败:', data);
-            alert(data.error || data.message || '注册失败，请检查输入信息');
+            // 处理详细的错误信息
+            let errorMessage = '注册失败，请检查输入信息';
+            if (data.error) {
+                errorMessage = data.error;
+            } else if (data.details && data.details.length > 0) {
+                errorMessage = data.details.map(detail => detail.msg).join(', ');
+            } else if (data.message) {
+                errorMessage = data.message;
+            }
+            alert(errorMessage);
         }
     } catch (error) {
         console.error('注册错误:', error);
@@ -661,7 +684,7 @@ async function handleEmailRegistration(formData) {
 
 async function handleEmailLogin(formData) {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        const response = await fetch(`${API_BASE_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -686,9 +709,36 @@ async function handleEmailLogin(formData) {
                 loginModal.style.display = 'none';
             }
             // 更新UI显示用户信息
-            updateUserInterface(data.user);
+            if (window.authAPI && window.authAPI.updateAuthUI) {
+                window.authAPI.updateAuthUI();
+            } else {
+                updateUserInterface(data.user);
+            }
+            // 延迟跳转，确保UI更新完成
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 100);
         } else {
-            alert(data.message || '登录失败，请检查邮箱和密码');
+            // 处理详细的错误信息
+            let errorMessage = '登录失败，请检查邮箱和密码';
+            if (data.error) {
+                errorMessage = data.error;
+                // 如果是邮箱未验证的错误，提供重新发送验证邮件的选项
+                if (data.error.includes('邮箱') || data.error.includes('验证')) {
+                    const resend = confirm('您的邮箱可能未验证。是否要重新发送验证邮件？');
+                    if (resend) {
+                        const email = document.getElementById('loginEmail')?.value || '';
+                        if (email) {
+                            resendVerificationEmail(email);
+                        } else {
+                            alert('请先输入邮箱地址');
+                        }
+                    }
+                }
+            } else if (data.message) {
+                errorMessage = data.message;
+            }
+            alert(errorMessage);
         }
     } catch (error) {
         console.error('Login error:', error);
@@ -699,7 +749,7 @@ async function handleEmailLogin(formData) {
 // Update UI after login
 function updateUserInterface(user) {
     // 更新导航栏显示用户信息
-    const signupBtn = document.querySelector('.signup-btn');
+    const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
     if (signupBtn && user) {
         signupBtn.innerHTML = `
             <i class="fas fa-user"></i>
@@ -731,7 +781,7 @@ function logout() {
     localStorage.removeItem('user');
     
     // 恢复原始Sign Up按钮
-    const signupBtn = document.querySelector('.signup-btn');
+    const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
     if (signupBtn) {
         signupBtn.innerHTML = `
             <i class="fas fa-user-plus"></i>
@@ -753,5 +803,34 @@ function checkAuthStatus() {
         updateUserInterface(JSON.parse(user));
     }
 } 
+
+// 重新发送验证邮件
+async function resendVerificationEmail(email) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/auth/resend-verification`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email })
+        });
+
+        const data = await response.json();
+        
+        if (response.ok) {
+            alert('验证邮件已重新发送，请检查您的邮箱');
+            return data;
+        } else {
+            alert(`发送失败: ${data.error}`);
+            throw new Error(data.error);
+        }
+    } catch (error) {
+        console.error('重新发送验证邮件错误:', error);
+        alert('发送失败，请稍后重试');
+    }
+}
+
+// 将函数添加到全局作用域
+window.resendVerificationEmail = resendVerificationEmail; 
 
  

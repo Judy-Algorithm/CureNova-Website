@@ -1,7 +1,7 @@
 // 前端与后端集成的JavaScript代码
 
 // 配置
-const API_BASE_URL = 'http://curenova-website-backend.onrender.com/api'; // 生产环境
+const API_BASE_URL = 'https://curenova-website-backend.onrender.com/api'; // 生产环境
 
 // 1. Google OAuth登录
 function loginWithGoogle() {
@@ -67,7 +67,7 @@ async function loginWithEmail(email, password) {
       updateAuthUI();
       
       // 跳转到主页
-      window.location.href = '/index.html';
+      window.location.href = 'index.html';
       return data;
     } else {
       alert(`Login failed: ${data.error}`);
@@ -135,8 +135,8 @@ function logout() {
   // 更新UI，隐藏用户头像，显示登录按钮
   updateAuthUI();
   
-  // 刷新页面或跳转到主页
-          window.location.href = '/index.html';
+          // 刷新页面或跳转到主页
+          window.location.href = 'index.html';
 }
 
 // 8. 发送API请求（带认证）
@@ -272,7 +272,7 @@ function handleOAuthCallback() {
         localStorage.setItem('user', JSON.stringify(response.user));
         updateAuthUI();
         alert(`${provider} login successful!`);
-        window.location.href = '/index.html';
+        window.location.href = 'index.html';
       }
     }).catch(error => {
       console.error('OAuth callback processing failed:', error);
