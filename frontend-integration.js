@@ -222,63 +222,81 @@ function showUserAvatar(user) {
     document.body.appendChild(userProfileDisplay);
   }
   
-  // 设置样式
+  // 设置样式 - 简洁的深灰色设计
   userProfileDisplay.style.cssText = `
     position: fixed;
     top: 20px;
     right: 20px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.95);
+    gap: 8px;
+    background: #2a2a2a;
     padding: 8px 16px;
     border-radius: 25px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid #444;
     z-index: 1000;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
+    cursor: pointer;
   `;
   
   // 生成头像URL（如果没有头像，使用用户名的首字母）
-  const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4A90E2&color=fff&size=40&rounded=true`;
+  const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4A90E2&color=fff&size=32&rounded=true`;
   
   userProfileDisplay.innerHTML = `
-    <div style="display: flex; align-items: center; gap: 8px;">
-      <img src="${avatarUrl}" alt="User Avatar" style="
-        width: 36px; 
-        height: 36px; 
-        border-radius: 50%; 
-        object-fit: cover; 
-        border: 2px solid #4A90E2;
-        box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
-      ">
-      <span style="
-        font-weight: 500; 
-        color: #333; 
-        font-size: 14px;
-        max-width: 120px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      ">${user.name}</span>
-    </div>
-    <button onclick="authAPI.logout()" style="
-      padding: 6px 12px; 
-      background-color: #dc3545; 
+    <span style="
       color: white; 
-      border: none; 
-      border-radius: 15px; 
-      cursor: pointer;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
-      transition: all 0.3s ease;
-      box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
-    " onmouseover="this.style.backgroundColor='#c82333'; this.style.transform='translateY(-1px)'" 
-       onmouseout="this.style.backgroundColor='#dc3545'; this.style.transform='translateY(0)'">
-      登出
-    </button>
+    ">${user.name}</span>
+    <img src="${avatarUrl}" alt="User Avatar" style="
+      width: 24px; 
+      height: 24px; 
+      border-radius: 50%; 
+      object-fit: cover;
+    ">
   `;
+  
+  // 添加鼠标悬停事件
+  userProfileDisplay.addEventListener('mouseenter', function() {
+    this.innerHTML = `
+      <span style="
+        color: white; 
+        font-size: 14px;
+        font-weight: 500;
+      ">登出</span>
+      <img src="${avatarUrl}" alt="User Avatar" style="
+        width: 24px; 
+        height: 24px; 
+        border-radius: 50%; 
+        object-fit: cover;
+      ">
+    `;
+    this.style.background = '#dc3545';
+    this.style.borderColor = '#c82333';
+  });
+  
+  userProfileDisplay.addEventListener('mouseleave', function() {
+    this.innerHTML = `
+      <span style="
+        color: white; 
+        font-size: 14px;
+        font-weight: 500;
+      ">${user.name}</span>
+      <img src="${avatarUrl}" alt="User Avatar" style="
+        width: 24px; 
+        height: 24px; 
+        border-radius: 50%; 
+        object-fit: cover;
+      ">
+    `;
+    this.style.background = '#2a2a2a';
+    this.style.borderColor = '#444';
+  });
+  
+  // 添加点击登出事件
+  userProfileDisplay.addEventListener('click', function() {
+    authAPI.logout();
+  });
   
   userProfileDisplay.style.display = 'flex';
 }
