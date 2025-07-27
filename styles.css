@@ -152,7 +152,7 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 9999;
+    z-index: 10001;
     position: relative;
     padding: 10px;
     background: transparent;
@@ -163,6 +163,8 @@ body {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+    min-width: 44px;
+    min-height: 44px;
 }
 
 .nav-toggle span {
@@ -1653,6 +1655,8 @@ body {
         display: flex !important;
         align-items: center;
         justify-content: center;
+        z-index: 10001;
+        position: relative;
     }
     
     /* 汉堡菜单动画效果 */
@@ -1666,6 +1670,17 @@ body {
     
     .nav-toggle.active span:nth-child(3) {
         transform: rotate(45deg) translate(-5px, -6px);
+    }
+    
+    /* 确保汉堡菜单在移动端可以正常点击 */
+    .nav-toggle {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
+    }
+    
+    .nav-toggle span {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
     
     /* 通用移动端处理 - 确保导航菜单不被地址栏遮挡（适用于所有移动设备） */

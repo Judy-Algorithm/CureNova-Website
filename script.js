@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (navToggle && navLinks) {
         console.log('Adding click event listener to nav toggle');
         
-        // 只使用一个简单的事件监听器
-        navToggle.addEventListener('click', function(e) {
+        // 使用touchstart和click事件来确保移动端兼容性
+        const toggleMenu = function(e) {
             e.preventDefault();
             e.stopPropagation();
             console.log('Mobile menu toggle clicked');
@@ -39,7 +39,16 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 document.body.style.overflow = 'auto';
             }
-        });
+        };
+        
+        // 添加多个事件监听器以确保兼容性
+        navToggle.addEventListener('click', toggleMenu);
+        navToggle.addEventListener('touchstart', toggleMenu);
+        
+        // 确保汉堡菜单可以点击
+        navToggle.style.pointerEvents = 'auto';
+        navToggle.style.cursor = 'pointer';
+    }
         
         // 点击页面其他地方关闭菜单
         document.addEventListener('click', function(e) {
@@ -108,12 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Close modal when clicking outside (only for download modal)
     if (modal) {
-    window.addEventListener('click', function(e) {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-    });
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
     }
 
     // Navbar scroll effect - 保持黑色背景
