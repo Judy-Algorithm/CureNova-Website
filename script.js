@@ -841,8 +841,8 @@ function addUserAvatarStyles() {
         }
         
         .user-avatar {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.3);
