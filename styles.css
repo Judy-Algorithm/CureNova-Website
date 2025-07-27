@@ -152,6 +152,8 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
+    z-index: 1001;
+    position: relative;
 }
 
 .nav-toggle span {
@@ -182,6 +184,8 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .hero::before {
@@ -956,6 +960,10 @@ body {
     
     body {
         overflow-y: auto;
+        background-attachment: scroll; /* 移动端使用scroll而不是fixed */
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
     
     .signup-section {
@@ -1670,6 +1678,12 @@ body {
         /* 为所有移动设备添加底部安全区域 */
         body {
             padding-bottom: env(safe-area-inset-bottom);
+            background-attachment: scroll; /* 移动端使用scroll而不是fixed */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            overflow-x: hidden;
         }
         
         /* 确保导航菜单在所有移动设备上都可见 */

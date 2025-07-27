@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.querySelector('.nav-links');
     
     if (navToggle && navLinks) {
-        navToggle.addEventListener('click', function() {
+        navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             console.log('Mobile menu toggle clicked');
             navLinks.classList.toggle('active');
             navToggle.classList.toggle('active');
@@ -16,6 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
             if (navLinks.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
             } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // 点击页面其他地方关闭菜单
+        document.addEventListener('click', function(e) {
+            if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
+                navLinks.classList.remove('active');
+                navToggle.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
         });
