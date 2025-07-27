@@ -5,12 +5,12 @@ const API_BASE_URL = 'https://curenova-website-backend.onrender.com/api'; // 生
 
 // 1. Google OAuth登录
 function loginWithGoogle() {
-  window.location.href = `${API_BASE_URL}/oauth/google/callback`;
+  window.location.href = `${API_BASE_URL}/oauth/google`;
 }
 
 // 2. GitHub OAuth登录
 function loginWithGitHub() {
-  window.location.href = `${API_BASE_URL}/oauth/github/callback`;
+  window.location.href = `${API_BASE_URL}/oauth/github`;
 }
 
 // 3. 邮箱注册
