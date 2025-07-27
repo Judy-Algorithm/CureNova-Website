@@ -127,19 +127,19 @@ function checkAuthStatus() {
   };
 }
 
-// 7. 登出
+// 7. Logout
 function logout() {
   localStorage.removeItem('authToken');
   localStorage.removeItem('user');
   
-  // 更新UI，隐藏用户头像，显示登录按钮
+  // Update UI, hide user avatar, show login button
   updateAuthUI();
   
-          // 刷新页面或跳转到主页
+          // Refresh page or redirect to homepage
           window.location.href = 'index.html';
 }
 
-// 8. 发送API请求（带认证）
+// 8. Send API request (with authentication)
 async function apiRequest(endpoint, options = {}) {
   const token = localStorage.getItem('authToken');
   
@@ -164,26 +164,26 @@ async function apiRequest(endpoint, options = {}) {
   return response.json();
 }
 
-// 9. 获取用户信息
+// 9. Get user information
 async function getUserProfile() {
   return await apiRequest('/user/profile');
 }
 
-// 10. 更新认证UI（显示/隐藏用户头像）
+// 10. Update authentication UI (show/hide user avatar)
 async function updateAuthUI() {
   const token = localStorage.getItem('authToken');
   const signupBtn = document.getElementById('signupBtn');
   
   if (token) {
-    // 用户已登录
+    // User is logged in
     try {
       const response = await getUserProfile();
       if (response && response.user) {
         const user = response.user;
         
-        // 修改Sign Up按钮为用户名+头像
+        // Modify Sign Up button to show username + avatar
         if (signupBtn) {
-          // 使用真实的用户头像URL
+          // Use real user avatar URL
           const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4A90E2&color=fff&size=24&rounded=true`;
           
           signupBtn.innerHTML = `
@@ -194,7 +194,7 @@ async function updateAuthUI() {
           signupBtn.style.alignItems = 'center';
           signupBtn.style.cursor = 'pointer';
           
-          // 添加鼠标悬停效果
+          // Add mouse hover effect
           signupBtn.addEventListener('mouseenter', function() {
             this.innerHTML = `
               <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">Logout</span>
@@ -213,17 +213,17 @@ async function updateAuthUI() {
             this.style.borderColor = '';
           });
           
-          // 添加点击登出事件
+          // Add click logout event
           signupBtn.onclick = function(e) {
             e.preventDefault();
             authAPI.logout();
           };
         }
         
-        // 更新localStorage中的用户信息
+        // Update user information in localStorage
         localStorage.setItem('user', JSON.stringify(user));
       } else {
-        // token无效，清除并显示登录按钮
+        // Token invalid, clear and show login button
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
         resetSignupButton();
