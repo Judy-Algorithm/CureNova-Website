@@ -31,15 +31,15 @@ async function registerWithEmail(name, email, password) {
     const data = await response.json();
     
     if (response.ok) {
-      alert('注册成功！请检查您的邮箱并点击验证链接。');
+      alert('Registration successful! Please check your email and click the verification link.');
       return data;
     } else {
-      alert(`注册失败: ${data.error}`);
+      alert(`Registration failed: ${data.error}`);
       throw new Error(data.error);
     }
   } catch (error) {
-    console.error('注册错误:', error);
-    alert('注册失败，请稍后重试');
+    console.error('Registration error:', error);
+    alert('Registration failed, please try again later');
   }
 }
 
@@ -70,12 +70,12 @@ async function loginWithEmail(email, password) {
       window.location.href = '/';
       return data;
     } else {
-      alert(`登录失败: ${data.error}`);
+      alert(`Login failed: ${data.error}`);
       throw new Error(data.error);
     }
   } catch (error) {
-    console.error('登录错误:', error);
-    alert('登录失败，请稍后重试');
+    console.error('Login error:', error);
+    alert('Login failed, please try again later');
   }
 }
 
@@ -95,15 +95,15 @@ async function verifyEmail(token) {
     const data = await response.json();
     
     if (response.ok) {
-      alert('邮箱验证成功！');
+      alert('Email verification successful!');
       return data;
     } else {
-      alert(`邮箱验证失败: ${data.error}`);
+      alert(`Email verification failed: ${data.error}`);
       throw new Error(data.error);
     }
   } catch (error) {
-    console.error('邮箱验证错误:', error);
-    alert('邮箱验证失败，请稍后重试');
+    console.error('Email verification error:', error);
+    alert('Email verification failed, please try again later');
   }
 }
 
@@ -181,13 +181,44 @@ async function updateAuthUI() {
       if (response && response.user) {
         const user = response.user;
         
-        // 隐藏Sign Up按钮
+        // 修改Sign Up按钮为用户名+头像
         if (signupBtn) {
-          signupBtn.style.display = 'none';
+          // 使用真实的用户头像URL
+          const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4A90E2&color=fff&size=24&rounded=true`;
+          
+          signupBtn.innerHTML = `
+            <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">${user.name}</span>
+            <img src="${avatarUrl}" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+          `;
+          signupBtn.style.display = 'flex';
+          signupBtn.style.alignItems = 'center';
+          signupBtn.style.cursor = 'pointer';
+          
+          // 添加鼠标悬停效果
+          signupBtn.addEventListener('mouseenter', function() {
+            this.innerHTML = `
+              <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">Logout</span>
+              <img src="${avatarUrl}" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+            `;
+            this.style.background = '#dc3545';
+            this.style.borderColor = '#c82333';
+          });
+          
+          signupBtn.addEventListener('mouseleave', function() {
+            this.innerHTML = `
+              <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">${user.name}</span>
+              <img src="${avatarUrl}" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
+            `;
+            this.style.background = '';
+            this.style.borderColor = '';
+          });
+          
+          // 添加点击登出事件
+          signupBtn.onclick = function(e) {
+            e.preventDefault();
+            authAPI.logout();
+          };
         }
-        
-        // 显示用户头像
-        showUserAvatar(user);
         
         // 更新localStorage中的用户信息
         localStorage.setItem('user', JSON.stringify(user));
@@ -195,121 +226,39 @@ async function updateAuthUI() {
         // token无效，清除并显示登录按钮
         localStorage.removeItem('authToken');
         localStorage.removeItem('user');
-        hideUserAvatar();
-        if (signupBtn) signupBtn.style.display = 'flex';
+        resetSignupButton();
       }
     } catch (error) {
-      console.error('获取用户信息失败:', error);
+      console.error('Failed to get user information:', error);
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
-      hideUserAvatar();
-      if (signupBtn) signupBtn.style.display = 'flex';
+      resetSignupButton();
     }
   } else {
     // 用户未登录
-    hideUserAvatar();
-    if (signupBtn) signupBtn.style.display = 'flex';
+    resetSignupButton();
   }
 }
 
-// 11. 显示用户头像
-function showUserAvatar(user) {
-  let userProfileDisplay = document.getElementById('userProfileDisplay');
-  
-  if (!userProfileDisplay) {
-    userProfileDisplay = document.createElement('div');
-    userProfileDisplay.id = 'userProfileDisplay';
-    document.body.appendChild(userProfileDisplay);
-  }
-  
-  // 设置样式 - 简洁的深灰色设计
-  userProfileDisplay.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #2a2a2a;
-    padding: 8px 16px;
-    border-radius: 25px;
-    border: 1px solid #444;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  `;
-  
-  // 生成头像URL（如果没有头像，使用用户名的首字母）
-  const avatarUrl = user.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&background=4A90E2&color=fff&size=32&rounded=true`;
-  
-  userProfileDisplay.innerHTML = `
-    <span style="
-      color: white; 
-      font-size: 14px;
-      font-weight: 500;
-    ">${user.name}</span>
-    <img src="${avatarUrl}" alt="User Avatar" style="
-      width: 24px; 
-      height: 24px; 
-      border-radius: 50%; 
-      object-fit: cover;
-    ">
-  `;
-  
-  // 添加鼠标悬停事件
-  userProfileDisplay.addEventListener('mouseenter', function() {
-    this.innerHTML = `
-      <span style="
-        color: white; 
-        font-size: 14px;
-        font-weight: 500;
-      ">登出</span>
-      <img src="${avatarUrl}" alt="User Avatar" style="
-        width: 24px; 
-        height: 24px; 
-        border-radius: 50%; 
-        object-fit: cover;
-      ">
+// 重置Sign Up按钮为默认状态
+function resetSignupButton() {
+  const signupBtn = document.getElementById('signupBtn');
+  if (signupBtn) {
+    signupBtn.innerHTML = `
+      <i class="fas fa-user-plus"></i>
+      Sign Up
     `;
-    this.style.background = '#dc3545';
-    this.style.borderColor = '#c82333';
-  });
-  
-  userProfileDisplay.addEventListener('mouseleave', function() {
-    this.innerHTML = `
-      <span style="
-        color: white; 
-        font-size: 14px;
-        font-weight: 500;
-      ">${user.name}</span>
-      <img src="${avatarUrl}" alt="User Avatar" style="
-        width: 24px; 
-        height: 24px; 
-        border-radius: 50%; 
-        object-fit: cover;
-      ">
-    `;
-    this.style.background = '#2a2a2a';
-    this.style.borderColor = '#444';
-  });
-  
-  // 添加点击登出事件
-  userProfileDisplay.addEventListener('click', function() {
-    authAPI.logout();
-  });
-  
-  userProfileDisplay.style.display = 'flex';
-}
-
-// 12. 隐藏用户头像
-function hideUserAvatar() {
-  const userProfileDisplay = document.getElementById('userProfileDisplay');
-  if (userProfileDisplay) {
-    userProfileDisplay.style.display = 'none';
+    signupBtn.style.display = 'flex';
+    signupBtn.style.alignItems = 'center';
+    signupBtn.style.cursor = 'pointer';
+    signupBtn.style.background = '';
+    signupBtn.style.borderColor = '';
+    signupBtn.onclick = null;
+    signupBtn.href = 'signup.html';
   }
 }
 
-// 13. 处理OAuth回调
+// 11. 处理OAuth回调
 function handleOAuthCallback() {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
@@ -322,12 +271,12 @@ function handleOAuthCallback() {
       if (response && response.user) {
         localStorage.setItem('user', JSON.stringify(response.user));
         updateAuthUI();
-        alert(`${provider} 登录成功！`);
+        alert(`${provider} login successful!`);
         window.location.href = '/';
       }
     }).catch(error => {
-      console.error('OAuth回调处理失败:', error);
-      alert('登录失败，请重试');
+      console.error('OAuth callback processing failed:', error);
+      alert('Login failed, please try again');
     });
   }
 }
