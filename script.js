@@ -829,9 +829,9 @@ function addUserAvatarStyles() {
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 6px 12px;
-            border-radius: 20px;
+            gap: 4px;
+            padding: 2px 6px;
+            border-radius: 14px;
             transition: all 0.3s ease;
             cursor: pointer;
         }
@@ -857,7 +857,7 @@ function addUserAvatarStyles() {
         
         .user-dropdown-icon {
             color: rgba(255, 255, 255, 0.7);
-            font-size: 12px;
+            font-size: 9px;
             transition: transform 0.3s ease;
         }
         
