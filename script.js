@@ -1,5 +1,7 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // 检查认证状态
+    checkAuthStatus();
     // Mobile navigation toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navLinks = document.querySelector('.nav-links');
