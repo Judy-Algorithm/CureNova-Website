@@ -691,7 +691,7 @@ async function handleEmailRegistration(formData) {
             if (loginModal) {
                 loginModal.style.display = 'flex';
             } else {
-                window.location.href = 'index.html';
+                window.location.href = '/';
             }
         } else {
             console.error('注册失败:', data);
@@ -746,7 +746,7 @@ async function handleEmailLogin(formData) {
             }
             // Delay redirect to ensure UI update completes
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '/';
             }, 100);
         } else {
             // Handle detailed error information

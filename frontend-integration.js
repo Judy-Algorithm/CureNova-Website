@@ -139,7 +139,7 @@ function logout() {
   alert('Successfully logged out');
   
   // Refresh page or redirect to homepage
-  window.location.href = 'index.html';
+  window.location.href = '/';
 }
 
 // 8. Send API request (with authentication)
@@ -257,7 +257,7 @@ function resetSignupButton() {
     signupBtn.style.background = '';
     signupBtn.style.borderColor = '';
     signupBtn.onclick = null;
-    signupBtn.href = 'signup.html';
+    signupBtn.href = '/signup';
   }
 }
 
@@ -275,7 +275,7 @@ function handleOAuthCallback() {
         localStorage.setItem('user', JSON.stringify(response.user));
         updateAuthUI();
         alert(`${provider} login successful!`);
-        window.location.href = 'index.html';
+        window.location.href = '/';
       }
     }).catch(error => {
       console.error('OAuth callback processing failed:', error);
