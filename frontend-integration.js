@@ -310,7 +310,7 @@ window.authAPI = {
   loginWithEmail,
   verifyEmail,
   checkAuthStatus,
-  logout: window.scriptLogout || logout, // Use script.js logout function if available
+  logout: logout, // Use frontend-integration.js logout function
   getUserProfile,
   updateAuthUI
 }; 

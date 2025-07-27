@@ -798,6 +798,19 @@ function updateUserInterface(user) {
             showUserMenu();
         };
         
+        // Add hover effects to change text to "Log out"
+        const userProfile = signupBtn.querySelector('.user-profile');
+        const userName = userProfile.querySelector('.user-name');
+        const originalName = user.name;
+        
+        signupBtn.addEventListener('mouseenter', function() {
+            userName.textContent = 'Log out';
+        });
+        
+        signupBtn.addEventListener('mouseleave', function() {
+            userName.textContent = originalName;
+        });
+        
         // Add user avatar CSS styles
         addUserAvatarStyles();
     }
