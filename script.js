@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 确保汉堡菜单可以点击
         navToggle.style.pointerEvents = 'auto';
         navToggle.style.cursor = 'pointer';
-    }
         
         // 点击页面其他地方关闭菜单
         document.addEventListener('click', function(e) {
