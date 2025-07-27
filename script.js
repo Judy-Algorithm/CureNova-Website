@@ -781,9 +781,15 @@ function updateUserInterface(user) {
     // 更新导航栏显示用户信息
     const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
     if (signupBtn && user) {
+        // 创建用户头像和名称的HTML
+        const userAvatar = user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name)}`;
+        
         signupBtn.innerHTML = `
-            <i class="fas fa-user"></i>
-            ${user.name}
+            <div class="user-profile">
+                <img src="${userAvatar}" alt="${user.name}" class="user-avatar" onerror="this.src='https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name)}'">
+                <span class="user-name">${user.name}</span>
+                <i class="fas fa-chevron-down user-dropdown-icon"></i>
+            </div>
         `;
         signupBtn.href = '#';
         signupBtn.onclick = function(e) {
@@ -791,18 +797,248 @@ function updateUserInterface(user) {
             // 显示用户菜单或登出选项
             showUserMenu();
         };
+        
+        // 添加用户头像的CSS样式
+        addUserAvatarStyles();
     }
+}
+
+// 添加用户头像的CSS样式
+function addUserAvatarStyles() {
+    // 检查是否已经添加过样式
+    if (document.getElementById('user-avatar-styles')) {
+        return;
+    }
+    
+    const style = document.createElement('style');
+    style.id = 'user-avatar-styles';
+    style.textContent = `
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .user-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .user-name {
+            color: #fff;
+            font-weight: 500;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+        
+        .user-dropdown-icon {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .user-profile:hover .user-dropdown-icon {
+            transform: rotate(180deg);
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .user-profile {
+                padding: 4px 8px;
+                gap: 6px;
+            }
+            
+            .user-avatar {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .user-name {
+                font-size: 13px;
+            }
+            
+            .user-dropdown-icon {
+                font-size: 10px;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Show user menu
 function showUserMenu() {
     const user = JSON.parse(localStorage.getItem('user'));
     if (user) {
-        const choice = confirm(`欢迎，${user.name}！\n点击确定登出，取消关闭菜单。`);
-        if (choice) {
-            logout();
-        }
+        // 创建用户菜单
+        createUserMenu(user);
     }
+}
+
+// 创建用户菜单
+function createUserMenu(user) {
+    // 移除已存在的菜单
+    const existingMenu = document.querySelector('.user-menu');
+    if (existingMenu) {
+        existingMenu.remove();
+    }
+    
+    // 创建菜单容器
+    const menu = document.createElement('div');
+    menu.className = 'user-menu';
+    menu.innerHTML = `
+        <div class="user-menu-content">
+            <div class="user-menu-header">
+                <img src="${user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name)}`}" alt="${user.name}" class="user-menu-avatar">
+                <div class="user-menu-info">
+                    <div class="user-menu-name">${user.name}</div>
+                    <div class="user-menu-email">${user.email}</div>
+                </div>
+            </div>
+            <div class="user-menu-actions">
+                <button class="user-menu-btn logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>登出</span>
+                </button>
+            </div>
+        </div>
+    `;
+    
+    // 添加菜单样式
+    addUserMenuStyles();
+    
+    // 将菜单添加到页面
+    document.body.appendChild(menu);
+    
+    // 点击其他地方关闭菜单
+    setTimeout(() => {
+        document.addEventListener('click', function closeMenu(e) {
+            if (!menu.contains(e.target) && !e.target.closest('.signup-btn')) {
+                menu.remove();
+                document.removeEventListener('click', closeMenu);
+            }
+        });
+    }, 100);
+}
+
+// 添加用户菜单样式
+function addUserMenuStyles() {
+    if (document.getElementById('user-menu-styles')) {
+        return;
+    }
+    
+    const style = document.createElement('style');
+    style.id = 'user-menu-styles';
+    style.textContent = `
+        .user-menu {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            min-width: 250px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .user-menu-content {
+            padding: 16px;
+        }
+        
+        .user-menu-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 12px;
+        }
+        
+        .user-menu-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .user-menu-info {
+            flex: 1;
+        }
+        
+        .user-menu-name {
+            color: #fff;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+        
+        .user-menu-email {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+        }
+        
+        .user-menu-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .user-menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .user-menu-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .logout-btn {
+            color: #ff6b6b;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 107, 107, 0.1);
+        }
+        
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .user-menu {
+                top: 70px;
+                right: 10px;
+                left: 10px;
+                min-width: auto;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Logout function
@@ -819,6 +1055,24 @@ function logout() {
         `;
         signupBtn.href = 'signup.html';
         signupBtn.onclick = null;
+    }
+    
+    // 移除用户头像样式
+    const userAvatarStyles = document.getElementById('user-avatar-styles');
+    if (userAvatarStyles) {
+        userAvatarStyles.remove();
+    }
+    
+    // 移除用户菜单样式
+    const userMenuStyles = document.getElementById('user-menu-styles');
+    if (userMenuStyles) {
+        userMenuStyles.remove();
+    }
+    
+    // 移除用户菜单
+    const userMenu = document.querySelector('.user-menu');
+    if (userMenu) {
+        userMenu.remove();
     }
     
     alert('已成功登出');
