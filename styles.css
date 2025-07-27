@@ -154,6 +154,10 @@ body {
     cursor: pointer;
     z-index: 1001;
     position: relative;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
 }
 
 .nav-toggle span {
@@ -162,6 +166,8 @@ body {
     background: white;
     margin: 3px 0;
     transition: 0.3s;
+    border-radius: 2px;
+    display: block;
 }
 
 /* Hero Section */
@@ -1639,7 +1645,22 @@ body {
     }
     
     .nav-toggle {
-        display: flex;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* 汉堡菜单动画效果 */
+    .nav-toggle.active span:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+    }
+    
+    .nav-toggle.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .nav-toggle.active span:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
     }
     
     /* 通用移动端处理 - 确保导航菜单不被地址栏遮挡（适用于所有移动设备） */
