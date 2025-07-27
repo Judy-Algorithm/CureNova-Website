@@ -610,19 +610,35 @@ async function handleGitHubLogin() {
 
 async function handleEmailRegistration(formData) {
     try {
+        console.log('开始注册请求...');
+        console.log('表单数据:', {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password')
+        });
+        
+        const requestBody = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            password: formData.get('password')
+        };
+        
+        console.log('请求URL:', `${API_BASE_URL}/api/auth/register`);
+        console.log('请求体:', requestBody);
+        
         const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                name: formData.get('name'),
-                email: formData.get('email'),
-                password: formData.get('password')
-            })
+            body: JSON.stringify(requestBody)
         });
 
+        console.log('响应状态:', response.status);
+        console.log('响应头:', Object.fromEntries(response.headers.entries()));
+
         const data = await response.json();
+        console.log('响应数据:', data);
 
         if (response.ok) {
             alert('注册成功！请检查您的邮箱以确认注册。');
@@ -632,10 +648,11 @@ async function handleEmailRegistration(formData) {
                 signupModal.style.display = 'none';
             }
         } else {
-            alert(data.message || '注册失败，请检查输入信息');
+            console.error('注册失败:', data);
+            alert(data.error || data.message || '注册失败，请检查输入信息');
         }
     } catch (error) {
-        console.error('Registration error:', error);
+        console.error('注册错误:', error);
         alert('注册失败，请检查网络连接');
     }
 }
