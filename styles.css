@@ -159,6 +159,10 @@ body {
     border: none;
     outline: none;
     pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .nav-toggle span {
