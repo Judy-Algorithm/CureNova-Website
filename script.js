@@ -498,7 +498,7 @@ style.textContent = `
 document.head.appendChild(style); 
 
 // API 基础 URL - 部署后需要更新为实际的后端地址
-const API_BASE_URL = 'https://your-backend-domain.vercel.app'; // 部署后更新此地址
+const API_BASE_URL = 'https://curenova-website-backend.onrender.com/api'; // 后端API地址
 
 // OAuth Login Functions
 // async function handleGoogleLogin() {
@@ -591,7 +591,7 @@ const API_BASE_URL = 'https://your-backend-domain.vercel.app'; // 部署后更�
 async function handleGoogleLogin() {
     try {
         // 重定向到 Google OAuth
-        window.location.href = `${API_BASE_URL}/auth/google`;
+        window.location.href = 'https://curenova-website-backend.onrender.com/api/oauth/google';
     } catch (error) {
         console.error('Google login error:', error);
         alert('Google登录失败，请稍后重试');
@@ -601,7 +601,7 @@ async function handleGoogleLogin() {
 async function handleGitHubLogin() {
     try {
         // 重定向到 GitHub OAuth
-        window.location.href = `${API_BASE_URL}/auth/github`;
+        window.location.href = 'https://curenova-website-backend.onrender.com/api/oauth/github';
     } catch (error) {
         console.error('GitHub login error:', error);
         alert('GitHub登录失败，请稍后重试');
