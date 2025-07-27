@@ -633,7 +633,7 @@ async function handleGoogleLogin() {
         window.location.href = 'https://curenova-website-backend.onrender.com/api/oauth/google';
     } catch (error) {
         console.error('Google login error:', error);
-        alert('Google登录失败，请稍后重试');
+        alert('Google login failed, please try again later');
     }
 }
 
@@ -643,7 +643,7 @@ async function handleGitHubLogin() {
         window.location.href = 'https://curenova-website-backend.onrender.com/api/oauth/github';
     } catch (error) {
         console.error('GitHub login error:', error);
-        alert('GitHub登录失败，请稍后重试');
+        alert('GitHub login failed, please try again later');
     }
 }
 
@@ -680,7 +680,7 @@ async function handleEmailRegistration(formData) {
         console.log('响应数据:', data);
 
         if (response.ok) {
-            alert('注册成功！请检查您的邮箱以确认注册。');
+            alert('Registration successful! Please check your email to confirm registration.');
             // 关闭注册模态框
             const signupModal = document.getElementById('signupModal');
             if (signupModal) {
@@ -707,8 +707,8 @@ async function handleEmailRegistration(formData) {
             alert(errorMessage);
         }
     } catch (error) {
-        console.error('注册错误:', error);
-        alert('注册失败，请检查网络连接');
+        console.error('Registration error:', error);
+        alert('Registration failed, please check your network connection');
     }
 }
 
@@ -728,40 +728,40 @@ async function handleEmailLogin(formData) {
         const data = await response.json();
 
         if (response.ok) {
-            // 保存token到localStorage
+            // Save token to localStorage
             localStorage.setItem('authToken', data.token);
             localStorage.setItem('user', JSON.stringify(data.user));
             
-            alert('登录成功！欢迎回到CureNova Bioscience');
-            // 关闭登录模态框
+            alert('Login successful! Welcome back to CureNova Bioscience');
+            // Close login modal
             const loginModal = document.getElementById('loginModal');
             if (loginModal) {
                 loginModal.style.display = 'none';
             }
-            // 更新UI显示用户信息
+            // Update UI to show user information
             if (window.authAPI && window.authAPI.updateAuthUI) {
                 window.authAPI.updateAuthUI();
             } else {
                 updateUserInterface(data.user);
             }
-            // 延迟跳转，确保UI更新完成
+            // Delay redirect to ensure UI update completes
             setTimeout(() => {
                 window.location.href = 'index.html';
             }, 100);
         } else {
-            // 处理详细的错误信息
-            let errorMessage = '登录失败，请检查邮箱和密码';
+            // Handle detailed error information
+            let errorMessage = 'Login failed, please check your email and password';
             if (data.error) {
                 errorMessage = data.error;
-                // 如果是邮箱未验证的错误，提供重新发送验证邮件的选项
-                if (data.error.includes('邮箱') || data.error.includes('验证')) {
-                    const resend = confirm('您的邮箱可能未验证。是否要重新发送验证邮件？');
+                // If it's an email verification error, provide option to resend verification email
+                if (data.error.includes('email') || data.error.includes('verify') || data.error.includes('verification')) {
+                    const resend = confirm('Your email may not be verified. Would you like to resend the verification email?');
                     if (resend) {
                         const email = document.getElementById('loginEmail')?.value || '';
                         if (email) {
                             resendVerificationEmail(email);
                         } else {
-                            alert('请先输入邮箱地址');
+                            alert('Please enter your email address first');
                         }
                     }
                 }
@@ -772,16 +772,16 @@ async function handleEmailLogin(formData) {
         }
     } catch (error) {
         console.error('Login error:', error);
-        alert('登录失败，请检查网络连接');
+        alert('Login failed, please check your network connection');
     }
 }
 
 // Update UI after login
 function updateUserInterface(user) {
-    // 更新导航栏显示用户信息
+    // Update navigation bar to show user information
     const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
     if (signupBtn && user) {
-        // 创建用户头像和名称的HTML
+        // Create user avatar and name HTML
         const userAvatar = user.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name)}`;
         
         signupBtn.innerHTML = `
@@ -794,18 +794,18 @@ function updateUserInterface(user) {
         signupBtn.href = '#';
         signupBtn.onclick = function(e) {
             e.preventDefault();
-            // 显示用户菜单或登出选项
+            // Show user menu or logout options
             showUserMenu();
         };
         
-        // 添加用户头像的CSS样式
+        // Add user avatar CSS styles
         addUserAvatarStyles();
     }
 }
 
-// 添加用户头像的CSS样式
+// Add user avatar CSS styles
 function addUserAvatarStyles() {
-    // 检查是否已经添加过样式
+    // Check if styles have already been added
     if (document.getElementById('user-avatar-styles')) {
         return;
     }
@@ -852,7 +852,7 @@ function addUserAvatarStyles() {
             transform: rotate(180deg);
         }
         
-        /* 移动端适配 */
+        /* Mobile adaptation */
         @media (max-width: 768px) {
             .user-profile {
                 padding: 4px 8px;
@@ -908,7 +908,7 @@ function createUserMenu(user) {
             <div class="user-menu-actions">
                 <button class="user-menu-btn logout-btn" onclick="logout()">
                     <i class="fas fa-sign-out-alt"></i>
-                    <span>登出</span>
+                    <span>Log out</span>
                 </button>
             </div>
         </div>
@@ -946,32 +946,32 @@ function addUserMenuStyles() {
             right: 20px;
             background: #1a1a1a;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             z-index: 1000;
-            min-width: 250px;
+            min-width: 280px;
             backdrop-filter: blur(10px);
         }
         
         .user-menu-content {
-            padding: 16px;
+            padding: 20px;
         }
         
         .user-menu-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding-bottom: 12px;
+            gap: 15px;
+            padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
         
         .user-menu-avatar {
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 3px solid rgba(255, 255, 255, 0.3);
         }
         
         .user-menu-info {
@@ -981,13 +981,13 @@ function addUserMenuStyles() {
         .user-menu-name {
             color: #fff;
             font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 2px;
+            font-size: 16px;
+            margin-bottom: 3px;
         }
         
         .user-menu-email {
             color: rgba(255, 255, 255, 0.6);
-            font-size: 12px;
+            font-size: 13px;
         }
         
         .user-menu-actions {
@@ -999,13 +999,13 @@ function addUserMenuStyles() {
         .user-menu-btn {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
+            gap: 10px;
+            padding: 12px 15px;
             background: transparent;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: #fff;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             text-align: left;
@@ -1024,7 +1024,7 @@ function addUserMenuStyles() {
             background: rgba(255, 107, 107, 0.1);
         }
         
-        /* 移动端适配 */
+        /* Mobile adaptation */
         @media (max-width: 768px) {
             .user-menu {
                 top: 70px;
@@ -1042,7 +1042,7 @@ function logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     
-    // 恢复原始Sign Up按钮
+    // Restore original Sign Up button
     const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
     if (signupBtn) {
         signupBtn.innerHTML = `
@@ -1053,25 +1053,25 @@ function logout() {
         signupBtn.onclick = null;
     }
     
-    // 移除用户头像样式
+    // Remove user avatar styles
     const userAvatarStyles = document.getElementById('user-avatar-styles');
     if (userAvatarStyles) {
         userAvatarStyles.remove();
     }
     
-    // 移除用户菜单样式
+    // Remove user menu styles
     const userMenuStyles = document.getElementById('user-menu-styles');
     if (userMenuStyles) {
         userMenuStyles.remove();
     }
     
-    // 移除用户菜单
+    // Remove user menu
     const userMenu = document.querySelector('.user-menu');
     if (userMenu) {
         userMenu.remove();
     }
     
-    alert('已成功登出');
+    alert('Successfully logged out');
 }
 
 // Check if user is logged in on page load
@@ -1084,7 +1084,7 @@ function checkAuthStatus() {
     }
 } 
 
-// 重新发送验证邮件
+// Resend verification email
 async function resendVerificationEmail(email) {
     try {
         const response = await fetch(`${API_BASE_URL}/auth/resend-verification`, {
@@ -1098,19 +1098,20 @@ async function resendVerificationEmail(email) {
         const data = await response.json();
         
         if (response.ok) {
-            alert('验证邮件已重新发送，请检查您的邮箱');
+            alert('Verification email has been resent, please check your email');
             return data;
         } else {
-            alert(`发送失败: ${data.error}`);
+            alert(`Send failed: ${data.error}`);
             throw new Error(data.error);
         }
     } catch (error) {
-        console.error('重新发送验证邮件错误:', error);
-        alert('发送失败，请稍后重试');
+        console.error('Resend verification email error:', error);
+        alert('Send failed, please try again later');
     }
 }
 
-// 将函数添加到全局作用域
-window.resendVerificationEmail = resendVerificationEmail; 
+// Add functions to global scope
+window.resendVerificationEmail = resendVerificationEmail;
+window.scriptLogout = logout; 
 
  

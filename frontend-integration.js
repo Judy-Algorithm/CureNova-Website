@@ -135,8 +135,11 @@ function logout() {
   // Update UI, hide user avatar, show login button
   updateAuthUI();
   
-          // Refresh page or redirect to homepage
-          window.location.href = 'index.html';
+  // Show logout success message
+  alert('Successfully logged out');
+  
+  // Refresh page or redirect to homepage
+  window.location.href = 'index.html';
 }
 
 // 8. Send API request (with authentication)
@@ -197,7 +200,7 @@ async function updateAuthUI() {
           // Add mouse hover effect
           signupBtn.addEventListener('mouseenter', function() {
             this.innerHTML = `
-              <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">Logout</span>
+              <span style="color: white; font-size: 14px; font-weight: 500; margin-right: 8px;">Log out</span>
               <img src="${avatarUrl}" alt="User Avatar" style="width: 24px; height: 24px; border-radius: 50%; object-fit: cover;">
             `;
             this.style.background = '#dc3545';
@@ -235,12 +238,12 @@ async function updateAuthUI() {
       resetSignupButton();
     }
   } else {
-    // 用户未登录
+    // User not logged in
     resetSignupButton();
   }
 }
 
-// 重置Sign Up按钮为默认状态
+// Reset Sign Up button to default state
 function resetSignupButton() {
   const signupBtn = document.getElementById('signupBtn');
   if (signupBtn) {
@@ -258,7 +261,7 @@ function resetSignupButton() {
   }
 }
 
-// 11. 处理OAuth回调
+// 11. Handle OAuth callback
 function handleOAuthCallback() {
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
@@ -281,9 +284,9 @@ function handleOAuthCallback() {
   }
 }
 
-// 页面加载时初始化
+// Initialize when page loads
 document.addEventListener('DOMContentLoaded', function() {
-  // 检查是否是OAuth回调页面
+  // Check if it's an OAuth callback page
   if (window.location.search.includes('token=')) {
     handleOAuthCallback();
   }
@@ -299,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function() {
   updateAuthUI();
 });
 
-// 导出函数供HTML使用
+// Export functions for HTML use
 window.authAPI = {
   loginWithGoogle,
   loginWithGitHub,
@@ -307,7 +310,7 @@ window.authAPI = {
   loginWithEmail,
   verifyEmail,
   checkAuthStatus,
-  logout,
+  logout: window.scriptLogout || logout, // Use script.js logout function if available
   getUserProfile,
   updateAuthUI
 }; 
