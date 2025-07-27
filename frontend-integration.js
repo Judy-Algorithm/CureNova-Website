@@ -1,16 +1,16 @@
 // 前端与后端集成的JavaScript代码
 
 // 配置
-const API_BASE_URL = 'https://curenova-website-backend.onrender.com/api'; // 生产环境
+const API_BASE_URL = 'http://curenova-website-backend.onrender.com/api'; // 生产环境
 
 // 1. Google OAuth登录
 function loginWithGoogle() {
-  window.location.href = `${API_BASE_URL}/oauth/google`;
+  window.location.href = `${API_BASE_URL}/oauth/google/callback`;
 }
 
 // 2. GitHub OAuth登录
 function loginWithGitHub() {
-  window.location.href = `${API_BASE_URL}/oauth/github`;
+  window.location.href = `${API_BASE_URL}/oauth/github/callback`;
 }
 
 // 3. 邮箱注册
