@@ -497,8 +497,8 @@ style.textContent = `
 `;
 document.head.appendChild(style); 
 
-// API Configuration
-// const API_BASE_URL = 'https://your-backend-domain.com/api'; // TODO: 部署后端后更新为实际地址
+// API 基础 URL - 部署后需要更新为实际的后端地址
+const API_BASE_URL = 'https://your-backend-domain.vercel.app'; // 部署后更新此地址
 
 // OAuth Login Functions
 // async function handleGoogleLogin() {
@@ -587,21 +587,94 @@ document.head.appendChild(style);
 //     }
 // }
 
-// 临时占位函数 - 后端部署后删除
+// 真实的认证函数实现
 async function handleGoogleLogin() {
-    alert('Google登录功能暂未启用，请等待后端部署完成');
+    try {
+        // 重定向到 Google OAuth
+        window.location.href = `${API_BASE_URL}/auth/google`;
+    } catch (error) {
+        console.error('Google login error:', error);
+        alert('Google登录失败，请稍后重试');
+    }
 }
 
 async function handleGitHubLogin() {
-    alert('GitHub登录功能暂未启用，请等待后端部署完成');
+    try {
+        // 重定向到 GitHub OAuth
+        window.location.href = `${API_BASE_URL}/auth/github`;
+    } catch (error) {
+        console.error('GitHub login error:', error);
+        alert('GitHub登录失败，请稍后重试');
+    }
 }
 
 async function handleEmailRegistration(formData) {
-    alert('注册功能暂未启用，请等待后端部署完成');
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: formData.get('password')
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('注册成功！请检查您的邮箱以确认注册。');
+            // 关闭注册模态框
+            const signupModal = document.getElementById('signupModal');
+            if (signupModal) {
+                signupModal.style.display = 'none';
+            }
+        } else {
+            alert(data.message || '注册失败，请检查输入信息');
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        alert('注册失败，请检查网络连接');
+    }
 }
 
 async function handleEmailLogin(formData) {
-    alert('登录功能暂未启用，请等待后端部署完成');
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: formData.get('email'),
+                password: formData.get('password')
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            // 保存token到localStorage
+            localStorage.setItem('authToken', data.token);
+            localStorage.setItem('user', JSON.stringify(data.user));
+            
+            alert('登录成功！欢迎回到CureNova Bioscience');
+            // 关闭登录模态框
+            const loginModal = document.getElementById('loginModal');
+            if (loginModal) {
+                loginModal.style.display = 'none';
+            }
+            // 更新UI显示用户信息
+            updateUserInterface(data.user);
+        } else {
+            alert(data.message || '登录失败，请检查邮箱和密码');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('登录失败，请检查网络连接');
+    }
 }
 
 // Update UI after login

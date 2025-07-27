@@ -26,7 +26,7 @@
                 <a href="team.html">Team</a>
                 <a href="community.html">Community</a>
                 <a href="contact.html">Contact</a>
-                <a href="signup.html" class="signup-btn">
+                <a href="signup.html" class="signup-btn" id="signupBtn">
                     <i class="fas fa-user-plus"></i>
                     Sign Up
                 </a>
@@ -38,6 +38,9 @@
             </div>
         </div>
     </nav>
+
+    <!-- User Profile Display (will be shown when logged in) -->
+    <div id="userProfileDisplay" style="display: none;"></div>
 
     <!-- Hero Section -->
     <section class="hero">
@@ -70,6 +73,7 @@
         </div>
     </section>
 
+    <script src="frontend-integration.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 
