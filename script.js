@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
+            e.stopImmediatePropagation();
             console.log('Mobile menu toggle clicked');
             
             const isActive = navLinks.classList.contains('active');
@@ -31,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 document.body.style.overflow = 'auto';
             }
+            
+            return false;
         });
         
         // 添加触摸事件支持
@@ -38,6 +41,30 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             console.log('Touch event on nav toggle');
         });
+        
+        // 添加mousedown事件支持
+        navToggle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            console.log('Mouse down on nav toggle');
+        });
+        
+        // 添加更直接的事件处理
+        navToggle.onclick = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Direct onclick event triggered');
+            
+            navLinks.classList.toggle('active');
+            navToggle.classList.toggle('active');
+            
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+            
+            return false;
+        };
         
         // 点击页面其他地方关闭菜单
         document.addEventListener('click', function(e) {

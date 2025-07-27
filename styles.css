@@ -152,12 +152,13 @@ body {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    z-index: 1001;
+    z-index: 9999;
     position: relative;
     padding: 10px;
     background: transparent;
     border: none;
     outline: none;
+    pointer-events: auto;
 }
 
 .nav-toggle span {
