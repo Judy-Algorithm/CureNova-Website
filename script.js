@@ -213,19 +213,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        .nav-links.active {
-            display: flex !important;
-            flex-direction: column;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #111 !important;
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
         .nav-toggle.active span:nth-child(1) {
             transform: rotate(-45deg) translate(-5px, 6px);
         }
