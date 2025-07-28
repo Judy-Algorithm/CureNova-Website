@@ -859,7 +859,7 @@ body {
 }
 
 .google-btn {
-    border-color: #4285f4;
+    border-color: rgba(255, 255, 255, 0.2);
 }
 
 .github-btn {
