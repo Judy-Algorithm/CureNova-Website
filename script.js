@@ -1055,17 +1055,6 @@ function logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user');
     
-    // Restore original Sign Up button
-    const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
-    if (signupBtn) {
-        signupBtn.innerHTML = `
-            <i class="fas fa-user-plus"></i>
-            Sign Up
-        `;
-        signupBtn.href = 'signup.html';
-        signupBtn.onclick = null;
-    }
-    
     // Remove user avatar styles
     const userAvatarStyles = document.getElementById('user-avatar-styles');
     if (userAvatarStyles) {
@@ -1084,7 +1073,15 @@ function logout() {
         userMenu.remove();
     }
     
+    // Reset Sign Up button
+    resetSignUpButton();
+    
     alert('Successfully logged out');
+    
+    // 强制刷新页面以确保状态正确
+    setTimeout(() => {
+        window.location.reload();
+    }, 100);
 }
 
 // Check if user is logged in on page load
@@ -1094,6 +1091,32 @@ function checkAuthStatus() {
     
     if (token && user) {
         updateUserInterface(JSON.parse(user));
+    } else {
+        // 确保未登录时Sign Up按钮状态正确
+        resetSignUpButton();
+    }
+}
+
+// Reset Sign Up button to default state
+function resetSignUpButton() {
+    const signupBtn = document.querySelector('.signup-btn') || document.getElementById('signupBtn');
+    if (signupBtn) {
+        signupBtn.innerHTML = `
+            <i class="fas fa-user-plus"></i>
+            Sign Up
+        `;
+        signupBtn.href = '/signup.html';
+        signupBtn.onclick = null;
+        
+        // 移除所有事件监听器
+        const newBtn = signupBtn.cloneNode(true);
+        signupBtn.parentNode.replaceChild(newBtn, signupBtn);
+        
+        // 添加点击事件
+        newBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '/signup.html';
+        });
     }
 } 
 
