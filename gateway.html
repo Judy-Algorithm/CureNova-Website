@@ -24,7 +24,15 @@
             </div>
             <div class="nav-links">
                 <a href="/">Home</a>
-                <a href="/gateway" class="active">Gateway</a>
+                <div class="dropdown">
+                    <a href="/gateway" class="active dropdown-toggle">Gateway</a>
+                    <div class="dropdown-menu">
+                        <a href="#mcp" class="dropdown-item">MCP</a>
+                        <a href="#website" class="dropdown-item">Website</a>
+                        <a href="#desktop" class="dropdown-item">Desktop</a>
+                        <a href="#extension" class="dropdown-item">Extension</a>
+                    </div>
+                </div>
                 <a href="/product">Product</a>
                 <a href="/team">Team</a>
                 <a href="/community">Community</a>
@@ -54,7 +62,7 @@
     <section class="about-content-section">
         <div class="container">
             <div class="about-grid">
-                <div class="about-text">
+                <div class="about-text" id="content-area">
                     <h2>Welcome to Our Gateway</h2>
                     <p>This is your entry point to the world of AI-powered bioinformatics. Explore our comprehensive ecosystem designed to revolutionize life science research.</p>
                     
@@ -118,5 +126,139 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Gateway dropdown functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            
+            dropdownItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Get the target section from href
+                    const target = this.getAttribute('href').substring(1);
+                    
+                    // Scroll to the target section or show content based on target
+                    switch(target) {
+                        case 'mcp':
+                            showSection('MCP', 'Model Context Protocol - Advanced AI integration for bioinformatics workflows');
+                            break;
+                        case 'website':
+                            showSection('Website', 'Web-based bioinformatics platform with intuitive interface');
+                            break;
+                        case 'desktop':
+                            showSection('Desktop', 'Desktop application for offline bioinformatics analysis');
+                            break;
+                        case 'extension':
+                            showSection('Extension', 'Browser extension for seamless bioinformatics tools integration');
+                            break;
+                    }
+                });
+            });
+            
+            function showSection(title, description) {
+                // Update the hero section content
+                const heroTitle = document.querySelector('.about-hero-content h1');
+                const heroDescription = document.querySelector('.about-hero-content p');
+                
+                if (heroTitle) heroTitle.textContent = title;
+                if (heroDescription) heroDescription.textContent = description;
+                
+                // Update content based on selection
+                const contentArea = document.getElementById('content-area');
+                if (contentArea) {
+                    contentArea.innerHTML = getContentForSection(title);
+                }
+                
+                // Smooth scroll to content section
+                const contentSection = document.querySelector('.about-content-section');
+                if (contentSection) {
+                    contentSection.scrollIntoView({ behavior: 'smooth' });
+                }
+                
+                // Update active state
+                document.querySelectorAll('.dropdown-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            }
+            
+            function getContentForSection(section) {
+                const contents = {
+                    'MCP': `
+                        <h2>Model Context Protocol (MCP)</h2>
+                        <p>Advanced AI integration framework for bioinformatics workflows. MCP enables seamless communication between AI models and bioinformatics tools, providing intelligent automation and enhanced data processing capabilities.</p>
+                        
+                        <h2>Key Features</h2>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Intelligent data preprocessing and quality control</li>
+                            <li>Automated pipeline optimization</li>
+                            <li>Real-time model performance monitoring</li>
+                            <li>Seamless integration with existing bioinformatics tools</li>
+                        </ul>
+                        
+                        <h2>Use Cases</h2>
+                        <p>Ideal for researchers requiring advanced AI assistance in genomics, transcriptomics, and proteomics analysis workflows.</p>
+                    `,
+                    'Website': `
+                        <h2>Web-based Bioinformatics Platform</h2>
+                        <p>Our intuitive web platform provides comprehensive bioinformatics tools with a user-friendly interface. Access powerful analysis capabilities directly from your browser without installation requirements.</p>
+                        
+                        <h2>Platform Features</h2>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Cloud-based data processing and storage</li>
+                            <li>Collaborative project sharing</li>
+                            <li>Real-time analysis monitoring</li>
+                            <li>Comprehensive result visualization</li>
+                        </ul>
+                        
+                        <h2>Accessibility</h2>
+                        <p>Available on any device with internet access, making bioinformatics analysis accessible to researchers worldwide.</p>
+                    `,
+                    'Desktop': `
+                        <h2>Desktop Application</h2>
+                        <p>High-performance desktop application for offline bioinformatics analysis. Optimized for local data processing with advanced computational capabilities.</p>
+                        
+                        <h2>Performance Benefits</h2>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>Local data processing for enhanced privacy</li>
+                            <li>Optimized for large-scale genomic datasets</li>
+                            <li>Offline analysis capabilities</li>
+                            <li>Customizable computational resources</li>
+                        </ul>
+                        
+                        <h2>System Requirements</h2>
+                        <p>Compatible with Windows, macOS, and Linux systems with support for multi-core processing and GPU acceleration.</p>
+                    `,
+                    'Extension': `
+                        <h2>Browser Extension</h2>
+                        <p>Seamless integration of bioinformatics tools directly into your web browser. Enhance your research workflow with instant access to analysis tools and data processing capabilities.</p>
+                        
+                        <h2>Extension Features</h2>
+                        <ul style="margin-left: 20px; margin-bottom: 20px;">
+                            <li>One-click data analysis from web pages</li>
+                            <li>Automatic data extraction and processing</li>
+                            <li>Integration with popular research databases</li>
+                            <li>Real-time collaboration tools</li>
+                        </ul>
+                        
+                        <h2>Compatibility</h2>
+                        <p>Available for Chrome, Firefox, and Safari browsers with cross-platform synchronization.</p>
+                    `
+                };
+                
+                return contents[section] || `
+                    <h2>Welcome to Our Gateway</h2>
+                    <p>This is your entry point to the world of AI-powered bioinformatics. Explore our comprehensive ecosystem designed to revolutionize life science research.</p>
+                    
+                    <h2>Mission</h2>
+                    <p>Guided by the mission of "Making bioinformatics smarter and more accessible," we aim to lower the barriers to bioinformatics through technological innovation. Our goal is to empower every life science researcher with professional-level data analysis capabilities, accelerating scientific discovery and medical breakthroughs.</p>
+                    
+                    <h2>Academic Excellence</h2>
+                    <p>As an innovation-driven company affiliated with <strong>Hong Kong University of Science and Technology (Guangzhou)</strong>, we combine cutting-edge research with practical applications to deliver world-class bioinformatics solutions.</p>
+                `;
+            }
+        });
+    </script>
 </body>
 </html> 

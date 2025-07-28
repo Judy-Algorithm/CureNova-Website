@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Google Account - CureNova Bioscience</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="signup-section">
+        <div class="signup-container">
+            <div class="signup-card">
+                <div class="signup-header">
+                    <h1>Select Google Account</h1>
+                    <p>Choose which Google account to use for CureNova Bioscience</p>
+                </div>
+
+                <div class="account-selection">
+                    <div class="account-option">
+                        <div class="account-info">
+                            <i class="fab fa-google" style="color: #4285f4; font-size: 2rem;"></i>
+                            <div>
+                                <h3>Continue with Google</h3>
+                                <p>Use your current Google account</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="loginWithGoogle()">
+                            Continue
+                        </button>
+                    </div>
+
+                    <div class="account-option">
+                        <div class="account-info">
+                            <i class="fas fa-user-plus" style="color: #667eea; font-size: 2rem;"></i>
+                            <div>
+                                <h3>Use Different Account</h3>
+                                <p>Sign in with a different Google account</p>
+                            </div>
+                        </div>
+                        <button class="btn btn-secondary" onclick="loginWithGoogleDifferent()">
+                            Select
+                        </button>
+                    </div>
+                </div>
+
+                <div class="back-link">
+                    <a href="/signup.html" class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back to Sign Up
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="frontend-integration.js"></script>
+    <script>
+        function loginWithGoogleDifferent() {
+            // 清除可能的Google缓存，强制重新选择账户
+            localStorage.removeItem('googleAuthState');
+            loginWithGoogle();
+        }
+    </script>
+</body>
+</html> 
