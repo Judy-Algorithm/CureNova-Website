@@ -138,8 +138,12 @@ function logout() {
   // Show logout success message
   alert('Successfully logged out');
   
-  // Refresh page or redirect to homepage
+  // Redirect to homepage and force refresh
   window.location.href = '/';
+  // 强制刷新页面以确保状态正确
+  setTimeout(() => {
+    window.location.reload();
+  }, 100);
 }
 
 // 8. Send API request (with authentication)
@@ -257,7 +261,13 @@ function resetSignupButton() {
     signupBtn.style.background = '';
     signupBtn.style.borderColor = '';
     signupBtn.onclick = null;
-    signupBtn.href = '/signup';
+    signupBtn.href = '/signup.html';
+    
+    // 确保按钮可以正常点击
+    signupBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = '/signup.html';
+    });
   }
 }
 
