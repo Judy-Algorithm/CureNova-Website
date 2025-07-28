@@ -5,8 +5,6 @@ const API_BASE_URL = 'https://curenova-website-backend.onrender.com/api'; // 生
 
 // 1. Google OAuth登录
 function loginWithGoogle() {
-  // 清除可能的Google缓存，确保显示账户选择界面
-  localStorage.removeItem('googleAuthState');
   window.location.href = `${API_BASE_URL}/oauth/google`;
 }
 

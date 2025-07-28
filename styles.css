@@ -114,9 +114,9 @@ body {
     background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 10px 0;
-    min-width: 150px;
+    border-radius: 8px;
+    padding: 8px 0;
+    min-width: 140px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -133,10 +133,11 @@ body {
 
 .dropdown-item {
     display: block;
-    padding: 12px 20px;
+    padding: 10px 16px;
     color: white;
     text-decoration: none;
     font-weight: 500;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     border: none;
     background: none;
