@@ -1177,8 +1177,12 @@ function redirectToBioNext(event) {
         // 跳转到Bio-Next应用
         window.open(bioNextUrl, '_blank');
     } else {
-        // 如果用户未登录，跳转到Bio-Next的登录页面
-        window.open('https://bio-next-website.vercel.app/', '_blank');
+        // 如果用户未登录，提示用户先进行sign up
+        const shouldSignUp = confirm('To access Bio-Next, you need to sign up first. Would you like to sign up now?');
+        if (shouldSignUp) {
+            // 跳转到sign up页面
+            window.location.href = '/signup.html';
+        }
     }
 }
 
