@@ -2446,8 +2446,9 @@ body {
 
 /* Try Now Section Styles */
 .try-now-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #764ba2 75%, #667eea 100%);
-    padding: 80px 0;
+    background: url('logo_Pictures/bg.png') center bottom;
+    background-size: cover;
+    padding: 60px 0;
     position: relative;
     overflow: hidden;
 }
@@ -2459,8 +2460,8 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
-    opacity: 0.3;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 25%, rgba(240, 147, 251, 0.8) 50%, rgba(118, 75, 162, 0.8) 75%, rgba(102, 126, 234, 0.8) 100%);
+    opacity: 0.9;
 }
 
 .try-now-content {
@@ -2470,7 +2471,7 @@ body {
 }
 
 .try-now-content h2 {
-    font-size: 3rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #fff;
     margin-bottom: 1rem;
@@ -2549,11 +2550,11 @@ body {
 /* 响应式设计 */
 @media (max-width: 768px) {
     .try-now-section {
-        padding: 60px 0;
+        padding: 50px 0;
     }
     
     .try-now-content h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
     
     .try-now-content p {
@@ -2569,7 +2570,7 @@ body {
 
 @media (max-width: 480px) {
     .try-now-content h2 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
     
     .try-now-content p {
