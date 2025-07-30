@@ -2493,6 +2493,7 @@ body {
     align-items: center;
     gap: 12px;
     overflow: hidden;
+    text-decoration: none;
 }
 
 .try-now-btn::before {
