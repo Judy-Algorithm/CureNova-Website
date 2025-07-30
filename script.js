@@ -1150,4 +1150,53 @@ async function resendVerificationEmail(email) {
 window.resendVerificationEmail = resendVerificationEmail;
 window.scriptLogout = logout; 
 
+// Bio-Next 跨站点认证跳转函数
+function redirectToBioNext(event) {
+    event.preventDefault();
+    
+    // 获取当前登录用户信息
+    const currentUser = getCurrentUser();
+    const authToken = getAuthToken();
+    
+    if (currentUser && authToken) {
+        // 构建用户数据
+        const userData = {
+            id: currentUser.id,
+            name: currentUser.name,
+            email: currentUser.email,
+            avatar: currentUser.avatar || null,
+            role: currentUser.role || "user"
+        };
+        
+        // URL编码用户数据
+        const encodedUserData = encodeURIComponent(JSON.stringify(userData));
+        
+        // 构建跳转URL
+        const bioNextUrl = `https://bio-next-website.vercel.app/?auth_token=${authToken}&user_data=${encodedUserData}`;
+        
+        // 跳转到Bio-Next应用
+        window.open(bioNextUrl, '_blank');
+    } else {
+        // 如果用户未登录，跳转到Bio-Next的登录页面
+        window.open('https://bio-next-website.vercel.app/', '_blank');
+    }
+}
+
+// 获取当前用户的辅助函数
+function getCurrentUser() {
+    const user = localStorage.getItem('user');
+    if (user) {
+        return JSON.parse(user);
+    }
+    return null;
+}
+
+// 获取认证token的辅助函数
+function getAuthToken() {
+    return localStorage.getItem('authToken');
+}
+
+// 将函数添加到全局作用域
+window.redirectToBioNext = redirectToBioNext; 
+
  
