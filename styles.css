@@ -2443,3 +2443,142 @@ body {
         font-size: 1.5rem;
     }
 } 
+
+/* Try Now Section Styles */
+.try-now-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #764ba2 75%, #667eea 100%);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.try-now-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+}
+
+.try-now-content {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+.try-now-content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.try-now-content p {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.try-now-btn {
+    position: relative;
+    background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+    border: none;
+    border-radius: 50px;
+    padding: 18px 40px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #667eea;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    overflow: hidden;
+}
+
+.try-now-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s;
+}
+
+.try-now-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    color: #5a67d8;
+}
+
+.try-now-btn:hover::before {
+    left: 100%;
+}
+
+.try-now-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-icon {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+}
+
+.try-now-btn:hover .btn-icon {
+    transform: translateX(5px);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .try-now-section {
+        padding: 60px 0;
+    }
+    
+    .try-now-content h2 {
+        font-size: 2.2rem;
+    }
+    
+    .try-now-content p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .try-now-btn {
+        padding: 16px 32px;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .try-now-content h2 {
+        font-size: 1.8rem;
+    }
+    
+    .try-now-content p {
+        font-size: 0.9rem;
+    }
+    
+    .try-now-btn {
+        padding: 14px 28px;
+        font-size: 0.95rem;
+        gap: 8px;
+    }
+} 
