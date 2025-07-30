@@ -2448,20 +2448,9 @@ body {
 .try-now-section {
     background: url('logo_Pictures/bg.png') center bottom;
     background-size: cover;
-    padding: 60px 0;
+    padding: 40px 0;
     position: relative;
     overflow: hidden;
-}
-
-.try-now-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 25%, rgba(240, 147, 251, 0.8) 50%, rgba(118, 75, 162, 0.8) 75%, rgba(102, 126, 234, 0.8) 100%);
-    opacity: 0.9;
 }
 
 .try-now-content {
@@ -2550,16 +2539,11 @@ body {
 /* 响应式设计 */
 @media (max-width: 768px) {
     .try-now-section {
-        padding: 50px 0;
+        padding: 35px 0;
     }
     
     .try-now-content h2 {
         font-size: 1.8rem;
-    }
-    
-    .try-now-content p {
-        font-size: 1rem;
-        margin-bottom: 2rem;
     }
     
     .try-now-btn {
