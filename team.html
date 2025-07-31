@@ -11,6 +11,79 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .story-section {
+            padding: 80px 0;
+            background: #000000;
+        }
+        
+        .story-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .story-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .story-row {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 80px;
+        }
+        
+        .story-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .story-text {
+            flex: 1;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #ffffff;
+        }
+        
+        .story-image {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .story-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .story-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        @media (max-width: 768px) {
+            .story-row {
+                flex-direction: column !important;
+                gap: 30px;
+            }
+            
+            .story-title {
+                font-size: 2.5rem;
+            }
+            
+            .story-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="subpage-container">
@@ -148,6 +221,32 @@
         </div>
     </section>
 
+    <!-- Our Story Section -->
+    <section class="story-section">
+        <div class="story-container">
+            <h2 class="story-title">Our Story</h2>
+            
+            <!-- First row: Text left, Image right -->
+            <div class="story-row">
+                <div class="story-text">
+                    <p>In mid-April 2025, we hosted a bioinformatics agent training lecture to help beginners with zero background get started in bioinformatics data analysis.</p>
+                </div>
+                <div class="story-image">
+                    <img src="logo_Pictures/lecture.png" alt="Bioinformatics Training Lecture">
+                </div>
+            </div>
+            
+            <!-- Second row: Image left, Text right -->
+            <div class="story-row">
+                <div class="story-image">
+                    <img src="logo_Pictures/Match.png" alt="Bioinformatics Agent Competition">
+                </div>
+                <div class="story-text">
+                    <p>Following that, we organized a Bioinformatics Agent Competition using our BioMaster product, where undergraduate students with no biology background were able to professionally process population genetics data.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     </div>
 

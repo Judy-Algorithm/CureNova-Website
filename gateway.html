@@ -10,6 +10,122 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .gateway-section {
+            padding: 80px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        
+        .gateway-section:nth-child(even) {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        }
+        
+        .gateway-section:nth-child(odd) {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+        }
+        
+        .section-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .section-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #ffffff;
+        }
+        
+        .feature-description {
+            color: #b0b0b0;
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-description {
+                font-size: 1.1rem;
+            }
+            
+            .section-features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="subpage-container">
@@ -50,32 +166,181 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="about-hero">
-        <div class="about-hero-content">
-            <h1>Gateway to Innovation</h1>
-            <p>Discover the future of bioinformatics through our comprehensive gateway</p>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <section class="about-content-section">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-text" id="content-area">
-                    <h2>Welcome to Our Gateway</h2>
-                    <p>This is your entry point to the world of AI-powered bioinformatics. Explore our comprehensive ecosystem designed to revolutionize life science research.</p>
-                    
-                    <h2>Mission</h2>
-                    <p>Guided by the mission of "Making bioinformatics smarter and more accessible," we aim to lower the barriers to bioinformatics through technological innovation. Our goal is to empower every life science researcher with professional-level data analysis capabilities, accelerating scientific discovery and medical breakthroughs.</p>
-                    
-                    <h2>Academic Excellence</h2>
-                    <p>As an innovation-driven company affiliated with <strong>Hong Kong University of Science and Technology (Guangzhou)</strong>, we combine cutting-edge research with practical applications to deliver world-class bioinformatics solutions.</p>
+    <!-- MCP Section -->
+    <section id="mcp" class="gateway-section">
+        <div class="section-content">
+            <h1 class="section-title">MCP</h1>
+            <p class="section-description">
+                Model Context Protocol - Advanced AI integration for bioinformatics workflows. 
+                Seamlessly connect AI models with bioinformatics tools for intelligent automation and enhanced data processing.
+            </p>
+            <div class="section-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="feature-title">Intelligent Processing</h3>
+                    <p class="feature-description">
+                        Advanced AI algorithms for automated data preprocessing and quality control, 
+                        ensuring reliable results for your bioinformatics analysis.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">Pipeline Optimization</h3>
+                    <p class="feature-description">
+                        Automated optimization of bioinformatics pipelines with real-time performance 
+                        monitoring and intelligent resource allocation.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <h3 class="feature-title">Seamless Integration</h3>
+                    <p class="feature-description">
+                        Easy integration with existing bioinformatics tools and workflows, 
+                        enhancing your current research capabilities without disruption.
+                    </p>
                 </div>
             </div>
+            <button class="cta-button">Explore MCP</button>
         </div>
     </section>
 
+    <!-- Website Section -->
+    <section id="website" class="gateway-section">
+        <div class="section-content">
+            <h1 class="section-title">Website</h1>
+            <p class="section-description">
+                Web-based bioinformatics platform with intuitive interface. 
+                Access powerful analysis capabilities directly from your browser without installation requirements.
+            </p>
+            <div class="section-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3 class="feature-title">Cloud Processing</h3>
+                    <p class="feature-description">
+                        Cloud-based data processing and storage with scalable infrastructure 
+                        to handle large-scale bioinformatics datasets efficiently.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Collaboration</h3>
+                    <p class="feature-description">
+                        Real-time collaborative project sharing and team management 
+                        for seamless research collaboration across institutions.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Visualization</h3>
+                    <p class="feature-description">
+                        Comprehensive result visualization with interactive charts, 
+                        graphs, and reports for better understanding of your data.
+                    </p>
+                </div>
+            </div>
+            <button class="cta-button">Access Platform</button>
+        </div>
+    </section>
+
+    <!-- Desktop Section -->
+    <section id="desktop" class="gateway-section">
+        <div class="section-content">
+            <h1 class="section-title">Desktop</h1>
+            <p class="section-description">
+                Desktop application for offline bioinformatics analysis. 
+                High-performance local data processing with advanced computational capabilities.
+            </p>
+            <div class="section-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Data Privacy</h3>
+                    <p class="feature-description">
+                        Local data processing for enhanced privacy and security, 
+                        keeping your sensitive research data on your own systems.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="feature-title">High Performance</h3>
+                    <p class="feature-description">
+                        Optimized for large-scale genomic datasets with multi-core processing 
+                        and GPU acceleration for maximum computational efficiency.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <h3 class="feature-title">Offline Capability</h3>
+                    <p class="feature-description">
+                        Complete offline analysis capabilities with customizable computational 
+                        resources for uninterrupted research workflows.
+                    </p>
+                </div>
+            </div>
+            <button class="cta-button">Download Desktop</button>
+        </div>
+    </section>
+
+    <!-- Extension Section -->
+    <section id="extension" class="gateway-section">
+        <div class="section-content">
+            <h1 class="section-title">Extension</h1>
+            <p class="section-description">
+                Browser extension for seamless bioinformatics tools integration. 
+                Enhance your research workflow with instant access to analysis tools and data processing capabilities.
+            </p>
+            <div class="section-features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mouse-pointer"></i>
+                    </div>
+                    <h3 class="feature-title">One-Click Analysis</h3>
+                    <p class="feature-description">
+                        One-click data analysis from web pages with automatic data extraction 
+                        and processing for immediate research insights.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="feature-title">Database Integration</h3>
+                    <p class="feature-description">
+                        Seamless integration with popular research databases and repositories 
+                        for comprehensive data access and analysis capabilities.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3 class="feature-title">Cross-Platform Sync</h3>
+                    <p class="feature-description">
+                        Available for Chrome, Firefox, and Safari browsers with cross-platform 
+                        synchronization for consistent research experience.
+                    </p>
+                </div>
+            </div>
+            <button class="cta-button">Install Extension</button>
+        </div>
+    </section>
 
     </div>
 
@@ -127,7 +392,7 @@
 
     <script src="script.js"></script>
     <script>
-        // Gateway dropdown functionality
+        // Smooth scrolling for navigation links
         document.addEventListener('DOMContentLoaded', function() {
             const dropdownItems = document.querySelectorAll('.dropdown-item');
             
@@ -135,129 +400,39 @@
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
                     
-                    // Get the target section from href
-                    const target = this.getAttribute('href').substring(1);
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
                     
-                    // Scroll to the target section or show content based on target
-                    switch(target) {
-                        case 'mcp':
-                            showSection('MCP', 'Model Context Protocol - Advanced AI integration for bioinformatics workflows');
-                            break;
-                        case 'website':
-                            showSection('Website', 'Web-based bioinformatics platform with intuitive interface');
-                            break;
-                        case 'desktop':
-                            showSection('Desktop', 'Desktop application for offline bioinformatics analysis');
-                            break;
-                        case 'extension':
-                            showSection('Extension', 'Browser extension for seamless bioinformatics tools integration');
-                            break;
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
                     }
                 });
             });
             
-            function showSection(title, description) {
-                // Update the hero section content
-                const heroTitle = document.querySelector('.about-hero-content h1');
-                const heroDescription = document.querySelector('.about-hero-content p');
+            // Add active class to current section based on scroll position
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('.gateway-section');
+                const navItems = document.querySelectorAll('.dropdown-item');
                 
-                if (heroTitle) heroTitle.textContent = title;
-                if (heroDescription) heroDescription.textContent = description;
-                
-                // Update content based on selection
-                const contentArea = document.getElementById('content-area');
-                if (contentArea) {
-                    contentArea.innerHTML = getContentForSection(title);
-                }
-                
-                // Smooth scroll to content section
-                const contentSection = document.querySelector('.about-content-section');
-                if (contentSection) {
-                    contentSection.scrollIntoView({ behavior: 'smooth' });
-                }
-                
-                // Update active state
-                document.querySelectorAll('.dropdown-item').forEach(item => {
-                    item.classList.remove('active');
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= sectionTop - 200) {
+                        current = section.getAttribute('id');
+                    }
                 });
-                this.classList.add('active');
-            }
-            
-            function getContentForSection(section) {
-                const contents = {
-                    'MCP': `
-                        <h2>Model Context Protocol (MCP)</h2>
-                        <p>Advanced AI integration framework for bioinformatics workflows. MCP enables seamless communication between AI models and bioinformatics tools, providing intelligent automation and enhanced data processing capabilities.</p>
-                        
-                        <h2>Key Features</h2>
-                        <ul style="margin-left: 20px; margin-bottom: 20px;">
-                            <li>Intelligent data preprocessing and quality control</li>
-                            <li>Automated pipeline optimization</li>
-                            <li>Real-time model performance monitoring</li>
-                            <li>Seamless integration with existing bioinformatics tools</li>
-                        </ul>
-                        
-                        <h2>Use Cases</h2>
-                        <p>Ideal for researchers requiring advanced AI assistance in genomics, transcriptomics, and proteomics analysis workflows.</p>
-                    `,
-                    'Website': `
-                        <h2>Web-based Bioinformatics Platform</h2>
-                        <p>Our intuitive web platform provides comprehensive bioinformatics tools with a user-friendly interface. Access powerful analysis capabilities directly from your browser without installation requirements.</p>
-                        
-                        <h2>Platform Features</h2>
-                        <ul style="margin-left: 20px; margin-bottom: 20px;">
-                            <li>Cloud-based data processing and storage</li>
-                            <li>Collaborative project sharing</li>
-                            <li>Real-time analysis monitoring</li>
-                            <li>Comprehensive result visualization</li>
-                        </ul>
-                        
-                        <h2>Accessibility</h2>
-                        <p>Available on any device with internet access, making bioinformatics analysis accessible to researchers worldwide.</p>
-                    `,
-                    'Desktop': `
-                        <h2>Desktop Application</h2>
-                        <p>High-performance desktop application for offline bioinformatics analysis. Optimized for local data processing with advanced computational capabilities.</p>
-                        
-                        <h2>Performance Benefits</h2>
-                        <ul style="margin-left: 20px; margin-bottom: 20px;">
-                            <li>Local data processing for enhanced privacy</li>
-                            <li>Optimized for large-scale genomic datasets</li>
-                            <li>Offline analysis capabilities</li>
-                            <li>Customizable computational resources</li>
-                        </ul>
-                        
-                        <h2>System Requirements</h2>
-                        <p>Compatible with Windows, macOS, and Linux systems with support for multi-core processing and GPU acceleration.</p>
-                    `,
-                    'Extension': `
-                        <h2>Browser Extension</h2>
-                        <p>Seamless integration of bioinformatics tools directly into your web browser. Enhance your research workflow with instant access to analysis tools and data processing capabilities.</p>
-                        
-                        <h2>Extension Features</h2>
-                        <ul style="margin-left: 20px; margin-bottom: 20px;">
-                            <li>One-click data analysis from web pages</li>
-                            <li>Automatic data extraction and processing</li>
-                            <li>Integration with popular research databases</li>
-                            <li>Real-time collaboration tools</li>
-                        </ul>
-                        
-                        <h2>Compatibility</h2>
-                        <p>Available for Chrome, Firefox, and Safari browsers with cross-platform synchronization.</p>
-                    `
-                };
                 
-                return contents[section] || `
-                    <h2>Welcome to Our Gateway</h2>
-                    <p>This is your entry point to the world of AI-powered bioinformatics. Explore our comprehensive ecosystem designed to revolutionize life science research.</p>
-                    
-                    <h2>Mission</h2>
-                    <p>Guided by the mission of "Making bioinformatics smarter and more accessible," we aim to lower the barriers to bioinformatics through technological innovation. Our goal is to empower every life science researcher with professional-level data analysis capabilities, accelerating scientific discovery and medical breakthroughs.</p>
-                    
-                    <h2>Academic Excellence</h2>
-                    <p>As an innovation-driven company affiliated with <strong>Hong Kong University of Science and Technology (Guangzhou)</strong>, we combine cutting-edge research with practical applications to deliver world-class bioinformatics solutions.</p>
-                `;
-            }
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === '#' + current) {
+                        item.classList.add('active');
+                    }
+                });
+            });
         });
     </script>
 </body>
